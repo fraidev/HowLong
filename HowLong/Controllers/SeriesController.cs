@@ -12,16 +12,16 @@ namespace HowLong.Controllers
 {
     public class SeriesController : ApiController
     {
-        static readonly ISerieRepository ServerDataRepository = new SerieRepository();
+        static readonly ISerieRepository SerieRepository = new SerieRepository();
 
         public IEnumerable<Serie> GetServerData()
         {
-            return ServerDataRepository.GetAll();
+            return SerieRepository.GetAll();
         }
 
         public Serie GetServerDataById(int id)
         {
-            var serie = ServerDataRepository.Get(id);
+            var serie = SerieRepository.Get(id);
 
             if (serie == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -40,14 +40,14 @@ namespace HowLong.Controllers
         //}
 
         //Why commented this - explained in the article
-        //public ServerData PostServerData(ServerData serverData)
-        //{
-        //    return serverDataRepository.Add(serverData);
-        //}
-
-        public HttpResponseMessage PostServerData([FromBody] Serie serie)
+        public Serie PostServerData(Serie serie)
         {
-            serie = ServerDataRepository.Add(serie);
+            return SerieRepository.Add(serie);
+        }
+
+        public HttpResponseMessage PostSerie([FromBody] Serie serie)
+        {
+            serie = SerieRepository.Add(serie);
 
             var response = Request.CreateResponse(HttpStatusCode.Created, serie);
 
@@ -58,21 +58,21 @@ namespace HowLong.Controllers
 
         }
 
-        public void PutServerData(int id, Serie serie)
+        public void PutSerie(int id, Serie serie)
         {
             serie.Id = id;
 
-            if (!ServerDataRepository.Update(serie))
+            if (!SerieRepository.Update(serie))
                 throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
-        public void DeleteServerData(int id)
+        public void DeleteSerie(int id)
         {
-            var serverData = ServerDataRepository.Get(id);
+            var serverData = SerieRepository.Get(id);
 
             if (serverData == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            ServerDataRepository.Delete(id);
+            SerieRepository.Delete(id);
         }
     }
 }

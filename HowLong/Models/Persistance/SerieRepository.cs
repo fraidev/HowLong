@@ -8,10 +8,6 @@ namespace HowLong.Models.Persistance
 {
     public class SerieRepository : ISerieRepository
     {
-        public SerieRepository()
-        {
-
-        }
 
         public Serie Get(int id)
         {

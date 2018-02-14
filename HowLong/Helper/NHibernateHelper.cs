@@ -12,14 +12,9 @@ namespace HowLong.Helper
 {
     public class NHibernateHelper
     {
-        public static ISession OpenSession()
-        {
-            return SessionFactory.OpenSession();
-
-        }
-
+        
         private static ISessionFactory _sessionFactory;
-        const string ConnectionString = @"Data Source=.;Initial Catalog=NHibernateDemo;Integrated Security=SSPI;";
+        //const string ConnectionString = @"Data Source=.;Initial Catalog=HowLongDb;Integrated Security=SSPI;";
         private static ISessionFactory SessionFactory
         {
             get
@@ -34,10 +29,16 @@ namespace HowLong.Helper
         private static void CreateSessionFactory()
         {
             _sessionFactory = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(ConnectionString).ShowSql)
+                .Database(MsSqlConfiguration.MsSql2012.ConnectionString("Data Source=.;Initial Catalog=HowLongDb;Integrated Security=SSPI;").ShowSql)
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Serie>())
-                .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, false))
+                .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false,false))
                 .BuildSessionFactory();
+        }
+
+        public static ISession OpenSession()
+        {
+            return SessionFactory.OpenSession();
+
         }
     }
 }

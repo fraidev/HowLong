@@ -9,8 +9,8 @@ namespace HowLong.Models.Persistance
     {
         Serie Get(int id);
         IEnumerable<Serie> GetAll();
-        Serie Add(Serie serverData);
+        Serie Add(Serie serie);
         void Delete(int id);
-        bool Update(Serie serverData);
+        bool Update(Serie serie);
     }
 }

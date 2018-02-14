@@ -19,7 +19,7 @@ namespace HowLong.Models
         {
             Table("Serie");
 
-            Id(x => x.Id, "Id").GeneratedBy.Identity().UnsavedValue(0);
+            Id(x => x.Id);// "Id").GeneratedBy.Identity().UnsavedValue(0);
 
             Map(x => x.Nome);
             Map(x => x.Tempo);

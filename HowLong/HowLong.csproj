@@ -129,6 +129,7 @@
     <Compile Include="Models\Persistance\SerieRepository.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\SerieMap.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
