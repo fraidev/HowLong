@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using FluentNHibernate.Conventions.Helpers;
 using HowLong.Models;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
@@ -20,7 +21,9 @@ namespace HowLong.Helper
             get
             {
                 if (_sessionFactory == null)
+                {
                     CreateSessionFactory();
+                }
 
                 return _sessionFactory;
             }
@@ -30,8 +33,11 @@ namespace HowLong.Helper
         {
             _sessionFactory = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString("Data Source=.;Initial Catalog=HowLongDb;Integrated Security=SSPI;").ShowSql)
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Serie>())
-                .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false,false))
+                .Mappings(m => 
+                    m.FluentMappings.AddFromAssemblyOf<Serie>() // NHibernate, olhe o assembly onde está a classe Serie e procure por arquivos de mapemanento que eu conheço.
+                    .Conventions.Add(DefaultLazy.Never())) 
+                .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(true,true))
+                
                 .BuildSessionFactory();
         }
 

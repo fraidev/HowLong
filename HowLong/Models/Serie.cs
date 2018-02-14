@@ -9,6 +9,11 @@ namespace HowLong.Models
 {
     public class Serie
     {
+        public Serie()
+        {
+            
+        }
+
         public Serie(int id, string nome, decimal tempo, decimal qtdEp)
         {
             Id = id;
