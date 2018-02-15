@@ -10,6 +10,7 @@ using HowLong.Models.Persistance;
 
 namespace HowLong.Controllers
 {
+    [RoutePrefix("api/Series")]
     public class SeriesController : ApiController
     {
         static readonly ISerieRepository SerieRepository = new SerieRepository();
@@ -40,23 +41,27 @@ namespace HowLong.Controllers
         //}
 
         //Why commented this - explained in the article
-        public Serie PostServerData(Serie serie)
+
+        [AllowAnonymous]
+        [Route("Register")]
+        [HttpPost]
+        public Serie PostSerie(Serie serie)
         {
             return SerieRepository.Add(serie);
         }
 
-        public HttpResponseMessage PostSerie([FromBody] Serie serie)
-        {
-            serie = SerieRepository.Add(serie);
+        //public HttpResponseMessage PostSerie([FromBody] Serie serie)
+        //{
+        //    serie = SerieRepository.Add(serie);
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, serie);
+        //    var response = Request.CreateResponse(HttpStatusCode.Created, serie);
 
-            var uri = Url.Link("DefaultApi", new { id = serie.Id });
-            response.Headers.Location = new Uri(uri);
+        //    var uri = Url.Link("DefaultApi", new { id = serie.Id });
+        //    response.Headers.Location = new Uri(uri);
 
-            return response;
+        //    return response;
 
-        }
+        //}
 
         public void PutSerie(int id, Serie serie)
         {
