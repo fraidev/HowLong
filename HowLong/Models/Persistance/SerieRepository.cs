@@ -12,7 +12,10 @@ namespace HowLong.Models.Persistance
         public Serie Get(int id)
         {
             using (var session = NHibernateHelper.OpenSession())
-                return session.Get<Serie>(id);
+           //     return session.Get<Serie>(id);
+            return session.QueryOver<Serie>()
+                .Where(c => c.Id == id)
+                .SingleOrDefault();
         }
 
         public IEnumerable<Serie> GetAll()

@@ -66,7 +66,7 @@ namespace HowLong.Controllers
         public void PutSerie(int id, Serie serie)
         {
             serie.Id = id;
-
+            SerieRepository.Update(serie);
             if (!SerieRepository.Update(serie))
                 throw new HttpResponseException(HttpStatusCode.NotFound);
         }

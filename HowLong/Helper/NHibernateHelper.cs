@@ -35,9 +35,10 @@ namespace HowLong.Helper
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString("Data Source=.;Initial Catalog=HowLongDb;Integrated Security=SSPI;").ShowSql)
                 .Mappings(m => 
                     m.FluentMappings.AddFromAssemblyOf<Serie>() // NHibernate, olhe o assembly onde está a classe Serie e procure por arquivos de mapemanento que eu conheço.
-                    .Conventions.Add(DefaultLazy.Never())) 
-                .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(true,true))
-                
+                    .Conventions.Add(DefaultLazy.Never())) // para não precisar do Virtual na classe
+                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true))
+                //.ExposeConfiguration(cfg => new SchemaExport(cfg).Create(true, true))
+
                 .BuildSessionFactory();
         }
 
